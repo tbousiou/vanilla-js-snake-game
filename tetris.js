@@ -17,7 +17,7 @@ function drawSquare(x,y,color) {
 	ctx.strokeRect(x*SQ,y*SQ,SQ,SQ)
 }
 
-drawSquare(1, 1, "red")
+//drawSquare(1, 1, "red")
 
 let board = [];
 for(r = 0; r< ROW; r++){
@@ -37,4 +37,43 @@ function drawBoard(){
 }
 
 drawBoard();
-console.log(board);
+
+const PIECES = [
+	[Z, "red"],
+	[S, "green"],
+	[T, "yellow"],
+	[O, "blue"],
+	[L, "purple"],
+	[I, "cyan"],
+	[J, "orange"]
+
+];
+
+// initiate a piece
+let p = new Piece(PIECES[6][0], PIECES[6][1])
+
+// The Object Piece
+function Piece(tetromino, color){
+	this.tetromino = tetromino;
+	this.color = color;
+
+	this.tetrominoN = 0; // starting pattern of tetromino
+	this.activeTetromino = this.tetromino[this.tetrominoN];
+
+	// control the pieces
+	this.x = 0;
+	this.y = 0;
+}
+
+Piece.prototype.draw = function(){
+	const size = this.activeTetromino.length;
+	for(r = 0; r < size; r++){
+		for(c = 0; c < size; c++){
+			if (this.activeTetromino[r][c]){
+				drawSquare(this.x + c, this.y + r, this.color);
+			}
+		}
+	}
+}
+
+p.draw();
