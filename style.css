@@ -8,3 +8,13 @@ body {
     border: 3px solid green;
     padding: 10px;
 }
+
+div.score-label {
+	font-size: 25px;
+	font-weight: bold;
+	font-family: monospace;
+}
+
+#score {
+	display: inline-block;
+}

@@ -1,5 +1,6 @@
 const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
+const scoreElement = document.getElementById("score");
 
 const ROW = 20;
 const COL = COLUMN = 10;
@@ -150,6 +151,7 @@ Piece.prototype.rotate = function(){
 	}
 }
 	
+let score = 0;
 
 // lock the piece when to the bottom or another piece
 Piece.prototype.lock = function(){
@@ -172,6 +174,33 @@ Piece.prototype.lock = function(){
 			board[this.y+r][this.x+c] = this.color;
 		}
 	}
+	
+	// remove full rows
+	for(r = 0; r < ROW; r++) {
+		let isRowFull = true;
+		for(c = 0; c < COL; c++) {
+			if(board[r][c]==VACANT) {
+			 	isRowFull = isRowFull && (board[r][c] != VACANT);
+			}
+		}
+		if(isRowFull) {
+			console.log("Row " + r + isRowFull);
+			for(y = r; y > 0; y--) {
+				board[y] = board[y-1];
+				//drawBoard();
+			}
+
+			board[0].fill(VACANT);
+
+			// update the score
+			score += 10;
+		}
+		
+	}
+	// update the board
+	drawBoard();
+	scoreElement.innerHTML = score;
+
 }
 
 
